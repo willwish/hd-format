@@ -1,6 +1,6 @@
 # HD Document Format — Specification v1.0
 
-**HD** ("HTML Document" / "Human-readable Doc") is a plain-text document format that sits between Markdown and full HTML. It keeps the readability and AI-editability of Markdown source, while adding real layout, design, and rich interactive components (charts, diagrams, tabs, mindmaps, …) that Markdown cannot express.
+**HD** stands for **HTML Doc**: a document format built on a safe subset of HTML, used like Markdown. It is a plain-text document format that sits between Markdown and full HTML. It keeps the readability and AI-editability of Markdown source, while adding real layout, design, and rich interactive components (charts, diagrams, tabs, mindmaps, …) that Markdown cannot express.
 
 File extension: **`.hd`** · Encoding: **UTF-8** · MIME (unofficial): `text/vnd.hd+html`
 
