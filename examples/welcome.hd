@@ -1,0 +1,113 @@
+<!hd 1.0>
+<hd-doc title="Welcome to HD" author="HD Project" date="2026-06-12" theme="auto">
+
+  <hd-use name="mindmap" src="../plugins/mindmap.hd.js"></hd-use>
+
+  <hd-body>
+
+    <h1>Welcome to HD</h1>
+
+    <p><strong>HD</strong> is a text document format that keeps the simplicity of Markdown
+    but renders with real design — and supports rich components like the ones below.
+    The source of this page is plain, readable text that an AI can edit directly.</p>
+
+    <hd-callout type="tip" title="Why HD?">
+      <p>Markdown source is easy to edit but plain to read. Full HTML renders nicely but is
+      messy to edit. HD is both: a small HTML subset plus declarative components.</p>
+    </hd-callout>
+
+    <h2>Charts — built in, no dependencies</h2>
+
+    <hd-chart type="bar" title="Revenue by quarter (HK$M)" height="300">
+    {
+      "labels": ["Q1", "Q2", "Q3", "Q4"],
+      "series": [
+        { "name": "2025", "data": [120, 150, 170, 210] },
+        { "name": "2026", "data": [140, 180, 205, 240] }
+      ]
+    }
+    </hd-chart>
+
+    <hd-chart type="line" title="Active users (k)" height="280">
+    {
+      "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      "series": [ { "name": "Users", "data": [12, 18, 24, 31, 45, 58] } ]
+    }
+    </hd-chart>
+
+    <hd-chart type="pie" title="Traffic sources" height="260">
+    {
+      "labels": ["Search", "Direct", "Social", "Referral"],
+      "series": [ { "name": "Share", "data": [44, 28, 17, 11] } ]
+    }
+    </hd-chart>
+
+    <h2>Tabs and collapsible sections</h2>
+
+    <hd-tabs>
+      <hd-tab title="For readers">
+        <p>Documents get typography, callouts, charts and diagrams — far easier to read
+        than a wall of Markdown output.</p>
+      </hd-tab>
+      <hd-tab title="For AI">
+        <p>Strict tags and declarative JSON data mean an AI can edit any part of a document
+        with simple text operations — no code generation needed.</p>
+      </hd-tab>
+      <hd-tab title="For developers">
+        <p>New components are plugins: one JS file registering a tag. Documents stay inert data.</p>
+      </hd-tab>
+    </hd-tabs>
+
+    <hd-details title="How does the security model work?">
+      <p>Documents are sanitized through a whitelist — no scripts, styles or event handlers
+      survive. All code lives in plugins, which you approve explicitly.</p>
+    </hd-details>
+
+    <h2>Diagrams</h2>
+
+    <hd-mermaid>
+flowchart LR
+  A[.hd file] --> B(Parse + sanitize)
+  B --> C{hd-* tag?}
+  C -->|built-in| D[Render component]
+  C -->|plugin| E[Plugin renderer]
+  C -->|HTML subset| F[Typeset]
+    </hd-mermaid>
+
+    <h2>Extensions — the mindmap plugin</h2>
+
+    <p>The mindmap below comes from a <em>plugin</em> — it is not built into the viewer.
+    Use <strong>Load plugin</strong> in the viewer and pick <code>plugins/mindmap.hd.js</code>.</p>
+
+    <hd-mindmap title="HD format">
+- HD
+  - Content
+    - HTML subset
+    - Components
+  - Built-ins
+    - Charts
+    - Mermaid
+    - Callouts, tabs
+  - Extensions
+    - Custom tags
+    - Plugin = 1 JS file
+    </hd-mindmap>
+
+    <h2>Plain HTML still works</h2>
+
+    <table>
+      <thead><tr><th>Feature</th><th>Markdown</th><th>HD</th></tr></thead>
+      <tbody>
+        <tr><td>Easy to edit / diff</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Designed output</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Charts, tabs, mindmaps</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Safe to open</td><td>Yes</td><td>Yes — sandboxed by design</td></tr>
+      </tbody>
+    </table>
+
+    <hd-callout type="info" title="Edit me">
+      <p>Open this file in any text editor — or ask an AI to add a section. That is the point.</p>
+    </hd-callout>
+
+  </hd-body>
+</hd-doc>
