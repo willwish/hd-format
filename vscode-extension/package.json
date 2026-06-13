@@ -24,7 +24,14 @@
     "charts"
   ],
   "main": "./extension.js",
-  "activationEvents": [],
+  "activationEvents": [
+    "onCustomEditor:hd.viewer",
+    "onCommand:hd.showPreview",
+    "onCommand:hd.showSource",
+    "onCommand:hd.openPreviewMode",
+    "onCommand:hd.openSourceMode",
+    "onCommand:hd.openSplitMode"
+  ],
   "contributes": {
     "languages": [
       {
@@ -55,51 +62,71 @@
             "filenamePattern": "*.hd"
           }
         ],
-        "priority": "option"
+        "priority": "default"
       }
     ],
     "commands": [
       {
-        "command": "hd.showPreview",
-        "title": "HD: Open Preview",
+        "command": "hd.openPreviewMode",
+        "title": "HD: Preview Mode",
         "icon": "$(open-preview)"
       },
       {
-        "command": "hd.showSource",
-        "title": "HD: Open Source",
-        "icon": "$(go-to-file)"
+        "command": "hd.openSourceMode",
+        "title": "HD: Source Mode",
+        "icon": "$(code)"
+      },
+      {
+        "command": "hd.openSplitMode",
+        "title": "HD: Split Source / Preview",
+        "icon": "$(split-horizontal)"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "hd.showPreview",
-          "when": "resourceExtname == .hd && activeCustomEditorId != 'hd.viewer'",
-          "group": "navigation"
+          "command": "hd.openSourceMode",
+          "when": "resourceExtname == .hd && activeCustomEditorId == 'hd.viewer'",
+          "group": "navigation@1"
         },
         {
-          "command": "hd.showSource",
-          "when": "activeCustomEditorId == 'hd.viewer'",
-          "group": "navigation"
+          "command": "hd.openSplitMode",
+          "when": "resourceExtname == .hd",
+          "group": "navigation@2"
+        },
+        {
+          "command": "hd.openPreviewMode",
+          "when": "resourceExtname == .hd && activeCustomEditorId != 'hd.viewer'",
+          "group": "navigation@3"
         }
       ],
       "commandPalette": [
         {
-          "command": "hd.showPreview",
+          "command": "hd.openPreviewMode",
           "when": "resourceExtname == .hd"
         },
         {
-          "command": "hd.showSource",
-          "when": "activeCustomEditorId == 'hd.viewer'"
+          "command": "hd.openSourceMode",
+          "when": "resourceExtname == .hd"
+        },
+        {
+          "command": "hd.openSplitMode",
+          "when": "resourceExtname == .hd"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "hd.showPreview",
+        "command": "hd.openPreviewMode",
         "key": "ctrl+shift+v",
         "mac": "cmd+shift+v",
         "when": "resourceExtname == .hd && editorTextFocus"
+      },
+      {
+        "command": "hd.openSplitMode",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "resourceExtname == .hd"
       }
     ],
     "configuration": {

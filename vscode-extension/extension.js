@@ -122,7 +122,7 @@ class HdViewerProvider {
   }
 }
 
-/* ---------------- preview <-> source toggle ---------------- */
+/* ---------------- editor modes ---------------- */
 function activeHdUri() {
   const tab = vscode.window.tabGroups.activeTabGroup.activeTab;
   const input = tab && tab.input;
@@ -130,9 +130,46 @@ function activeHdUri() {
   const ed = vscode.window.activeTextEditor;
   return ed ? ed.document.uri : undefined;
 }
-function reopenWith(viewType) {
+
+function isHdUri(uri) {
+  return uri && uri.fsPath && path.extname(uri.fsPath).toLowerCase() === ".hd";
+}
+
+function warnNoHdFile() {
+  vscode.window.showWarningMessage("Open an .hd file first.");
+}
+
+async function openPreviewMode() {
   const uri = activeHdUri();
-  if (uri) vscode.commands.executeCommand("vscode.openWith", uri, viewType);
+  if (!isHdUri(uri)) return warnNoHdFile();
+  await vscode.commands.executeCommand("vscode.openWith", uri, "hd.viewer", {
+    preview: false
+  });
+}
+
+async function openSourceMode() {
+  const uri = activeHdUri();
+  if (!isHdUri(uri)) return warnNoHdFile();
+  const doc = await vscode.workspace.openTextDocument(uri);
+  await vscode.window.showTextDocument(doc, {
+    preview: false,
+    viewColumn: vscode.ViewColumn.Active
+  });
+}
+
+async function openSplitMode() {
+  const uri = activeHdUri();
+  if (!isHdUri(uri)) return warnNoHdFile();
+  await vscode.commands.executeCommand("workbench.action.editorLayoutTwoColumns");
+  const doc = await vscode.workspace.openTextDocument(uri);
+  await vscode.window.showTextDocument(doc, {
+    preview: false,
+    viewColumn: vscode.ViewColumn.One
+  });
+  await vscode.commands.executeCommand("vscode.openWith", uri, "hd.viewer", {
+    preview: false,
+    viewColumn: vscode.ViewColumn.Two
+  });
 }
 
 /* ---------------- activation ---------------- */
@@ -150,8 +187,11 @@ function activate(context) {
       webviewOptions: { retainContextWhenHidden: true },
       supportsMultipleEditorsPerDocument: true
     }),
-    vscode.commands.registerCommand("hd.showPreview", () => reopenWith("hd.viewer")),
-    vscode.commands.registerCommand("hd.showSource", () => reopenWith("default")),
+    vscode.commands.registerCommand("hd.showPreview", openPreviewMode),
+    vscode.commands.registerCommand("hd.showSource", openSourceMode),
+    vscode.commands.registerCommand("hd.openPreviewMode", openPreviewMode),
+    vscode.commands.registerCommand("hd.openSourceMode", openSourceMode),
+    vscode.commands.registerCommand("hd.openSplitMode", openSplitMode),
     watcher
   );
 }

@@ -1,11 +1,11 @@
 # HD Format — VS Code Extension
 
-View `.hd` documents ([HD format](https://github.com/willwish/hd-format)) rendered directly in VS Code: charts, Mermaid diagrams, tabs, callouts — with one-click toggle between preview and source.
+View `.hd` documents ([HD format](https://github.com/willwish/hd-format)) rendered directly in VS Code: charts, Mermaid diagrams, tabs, callouts — with source, preview, and split source/preview modes.
 
 ## Features
 
 - **Rendered preview** of `.hd` files via a custom editor (the same engine and security model as `viewer.html`)
-- **Toggle buttons** in the editor title bar: open preview from source (`Cmd/Ctrl+Shift+V`) and jump back to source from preview
+- **Editor modes** in the editor title bar and command palette: source, split source/preview, and preview
 - **Live update** — preview re-renders as you type (250 ms debounce)
 - **Plugin auto-loading** — HD component plugins (`*.hd.js`) are loaded automatically:
   - *Repo-based:* from `plugins/`, `hd-plugins/`, or `.hd/plugins/` in your workspace (configurable via `hd.pluginGlobs`)
@@ -44,7 +44,10 @@ No build step — the extension is plain JavaScript.
 
 ## Usage
 
-1. Open a `.hd` file — it opens as source (text) by default.
-2. Click the preview icon in the editor title bar (or `Cmd/Ctrl+Shift+V`) to switch to the rendered view.
-3. Click the source icon to switch back and edit; reopen preview to see changes (or keep two editors side by side — the preview live-updates as you type).
+1. Open a `.hd` file — it opens in the rendered HD viewer by default.
+2. Use the editor title buttons or command palette to switch modes:
+   - `HD: Source Mode` opens editable source.
+   - `HD: Split Source / Preview` opens source on the left and preview on the right (`Cmd/Ctrl+K`, then `V`).
+   - `HD: Preview Mode` opens the rendered preview (`Cmd/Ctrl+Shift+V` from source).
+3. The preview live-updates as you type in source mode or split mode.
 4. Drop plugin files (e.g. `mindmap.hd.js`) into your project's `plugins/` folder — components render immediately.
