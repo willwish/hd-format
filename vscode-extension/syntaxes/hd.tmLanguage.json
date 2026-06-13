@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "HD Doc",
+  "scopeName": "text.hd",
+  "patterns": [
+    {
+      "name": "comment.block.hd-header",
+      "match": "^\\s*<!hd[^>]*>"
+    },
+    {
+      "include": "text.html.basic"
+    }
+  ]
+}

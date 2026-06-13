@@ -36,6 +36,7 @@ cd hd-format
 | `docs/AUTHORING-GUIDE.md` | Skill-ready guide that teaches an AI to write `.hd` files |
 | `examples/welcome.hd` | Showcase document |
 | `plugins/mindmap.hd.js` | Example extension: `<hd-mindmap>` |
+| `vscode-extension/` | VS Code extension: rendered preview, source/preview toggle, plugin auto-loading |
 
 ## A document looks like this
 

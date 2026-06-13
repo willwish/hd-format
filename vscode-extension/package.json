@@ -1,0 +1,128 @@
+{
+  "name": "hd-format",
+  "displayName": "HD Format",
+  "description": "View .hd documents (HTML Doc format) rendered with charts, diagrams, tabs and plugins — toggle between preview and source.",
+  "version": "0.1.0",
+  "publisher": "willwish",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willwish/hd-format"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "hd",
+    "document",
+    "preview",
+    "markdown-alternative",
+    "charts"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "hd",
+        "extensions": [
+          ".hd"
+        ],
+        "aliases": [
+          "HD Doc",
+          "hd"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hd",
+        "scopeName": "text.hd",
+        "path": "./syntaxes/hd.tmLanguage.json"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "hd.viewer",
+        "displayName": "HD Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.hd"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "hd.showPreview",
+        "title": "HD: Open Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "hd.showSource",
+        "title": "HD: Open Source",
+        "icon": "$(go-to-file)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "hd.showPreview",
+          "when": "resourceExtname == .hd && activeCustomEditorId != 'hd.viewer'",
+          "group": "navigation"
+        },
+        {
+          "command": "hd.showSource",
+          "when": "activeCustomEditorId == 'hd.viewer'",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "hd.showPreview",
+          "when": "resourceExtname == .hd"
+        },
+        {
+          "command": "hd.showSource",
+          "when": "activeCustomEditorId == 'hd.viewer'"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "hd.showPreview",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "resourceExtname == .hd && editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "HD Format",
+      "properties": {
+        "hd.pluginGlobs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "plugins/*.hd.js",
+            "hd-plugins/*.hd.js",
+            ".hd/plugins/*.hd.js"
+          ],
+          "description": "Workspace-relative glob patterns of HD component plugins (*.hd.js) to auto-load into every preview in that workspace."
+        },
+        "hd.globalPluginFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to a folder of global *.hd.js plugins, auto-loaded into every HD preview in any workspace."
+        }
+      }
+    }
+  }
+}
